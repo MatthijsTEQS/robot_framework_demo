@@ -34,6 +34,10 @@ jobs:
       - name: Run Robot UI suite
         run: python -m robot --outputdir results tests/robot
 
+      - name: Show Docker logs on failure
+        if: failure()
+        run: docker compose -f webshop_app/docker-compose.yml logs --no-color
+
       - name: Upload Robot results
         if: always()
         uses: actions/upload-artifact@v4

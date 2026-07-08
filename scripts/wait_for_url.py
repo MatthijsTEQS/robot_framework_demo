@@ -3,10 +3,21 @@
 from __future__ import annotations
 
 import argparse
+import http.client
+import socket
 import sys
 import time
 import urllib.error
 import urllib.request
+
+
+TRANSIENT_NETWORK_ERRORS = (
+    ConnectionResetError,
+    TimeoutError,
+    socket.timeout,
+    http.client.BadStatusLine,
+    http.client.RemoteDisconnected,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -32,7 +43,10 @@ def main() -> int:
                 if 200 <= response.status < 500:
                     print(f"Ready: {args.url} ({response.status})")
                     return 0
-        except urllib.error.URLError:
+        except (urllib.error.URLError, *TRANSIENT_NETWORK_ERRORS):
+            # During container startup the TCP connection can exist before the
+            # web app is fully ready, which may cause resets or incomplete
+            # HTTP responses. These are retriable readiness failures.
             pass
         time.sleep(args.interval)
 
