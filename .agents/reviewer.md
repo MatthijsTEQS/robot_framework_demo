@@ -11,6 +11,7 @@ Review changes for maintainability, test stability, and scope discipline.
 - Are waits robust and explicit?
 - Does CI stay understandable?
 - Does the change stay inside version 1 scope?
+- Do the docs still match the actual repo structure and commands?
 
 ## Red Flags
 
@@ -18,3 +19,4 @@ Review changes for maintainability, test stability, and scope discipline.
 - brittle sleeps
 - hidden large flows inside one helper
 - accidental expansion into API, checkout, or extra CI platforms
+- stale docs after structural or command changes

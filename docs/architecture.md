@@ -27,11 +27,11 @@ The app under test is ephemeral:
 
 ## Repository Areas
 
-- `app/` contains Docker Compose and runtime assets
+- `webshop_app/` contains Docker Compose and runtime assets
 - `tests/robot/` contains Robot suites
 - `tests/resources/` contains reusable UI keywords and locators
 - `tests/variables/` contains environment and test data variables
-- `scripts/` contains cross-platform helper scripts
+- `scripts/` contains helper scripts
 - `docs/` contains human-first project truth
 - `.agents/` contains AI operating instructions
 

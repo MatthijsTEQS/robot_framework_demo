@@ -12,12 +12,19 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - no API suite
 - no checkout flow
 
-## Architecture Rules
+## Repo Guardrails
 
 - Treat `docs/` as human-first project truth
 - Use `.agents/` for AI operating behavior
+- Treat generated folders like `*.egg-info/` and `results/` as non-source artifacts
+- Prefer direct shell commands over thin wrapper scripts when the wrapper adds no real behavior
+
+## Architecture Rules
+
 - Keep selectors centralized in resource files
 - Keep business flows readable in Robot suites
+- Keep CI commands aligned with the documented local commands
+- Keep version-1 structure simple and explicit
 
 ## Selector Rules
 
@@ -31,3 +38,4 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - optimize for acceptance value
 - keep version 1 stable and teachable
 - avoid clever abstraction for its own sake
+- tighten live locators based on real test feedback, not speculation

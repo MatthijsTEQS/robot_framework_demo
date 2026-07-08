@@ -1,0 +1,46 @@
+name: UI Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  robot-ui-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Python dependencies
+        run: python -m pip install -e .
+
+      - name: Initialize Browser library
+        run: rfbrowser init
+
+      - name: Start OWASP Juice Shop
+        run: docker compose -f webshop_app/docker-compose.yml up -d
+
+      - name: Wait for webshop
+        run: python scripts/wait_for_url.py http://127.0.0.1:3000 --timeout 180
+
+      - name: Run Robot UI suite
+        run: python -m robot --outputdir results tests/robot
+
+      - name: Upload Robot results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-results
+          path: results/
+
+      - name: Stop OWASP Juice Shop
+        if: always()
+        run: docker compose -f webshop_app/docker-compose.yml down --remove-orphans
