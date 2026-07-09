@@ -29,8 +29,14 @@ python scripts/wait_for_url.py http://127.0.0.1:3000
 
 ## Run The UI Tests
 
+Run the tests normally:
 ```bash
 python -m robot --outputdir results tests/robot
+```
+
+Record a video of the tests:
+```bash
+python -m robot --outputdir results --variable RECORD_VIDEO:True --variable HEADLESS:False tests/robot
 ```
 
 ## Login Test Data
