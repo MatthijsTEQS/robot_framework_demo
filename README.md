@@ -14,42 +14,39 @@ Start with `docs/getting-started.md`.
 
 ## File Structure
 
-- `.agents/` AI instructions. These are meant to help AI tools behave consistently in the repo
-  - `shared.md`: common project rules for AI tasks. Explains scope boundaries, repo guardrails, selector rules, and the general testing philosophy
-  - `robot-author.md`: instructions for creating Robot UI tests. Explains where selectors belong, how keywords should be written, and what patterns to avoid
-  - `ci-author.md`: instructions for GitHub workflow and related CI behavior
-  - `reviewer.md`: instructions for review-style AI work
-
-- `.github/workflows/ui-tests.yml` The GitHub Actions workflow file
-
-- `docs/` Human-first project documentation
-  - `acceptance-criteria.md`: captures the business-facing outcomes the project should prove
-  - `architecture.md`: explains the runtime shape and repo structure
-  - `coding-standards.md`: explains coding conventions
-  - `getting-started.md`: local setup and run commands
-  - `testing-strategy.md`: explains what we test and the suite structure
-
-- `scripts/` Helper scripts
-  - `wait_for_url.py`: waits until the webshop is reachable before continuing with tests
-
-- `tests/` Robot Framework automation assets
-  - `robot/`: test suites written in business language
-  - `resources/`: reusable keywords and centralized locators
-  - `variables/`: environment and test data values
-
-- `webshop_app/` Runtime assets for the system under test
-  - `docker-compose.yml` starts the upstream `OWASP Juice Shop` container
-
-- `pyproject.toml` The Python project configuration file. Defines the project metadata, dependency installation, and setup
+- `.agents/` contains AI instructions to help AI tools behave consistently in the repo.
+- `shared.md` defines common project rules, scope boundaries, selector rules, and the general testing philosophy.
+- `robot-author.md` explains how to create or refine Robot UI tests, where selectors belong, and what patterns to avoid.
+- `ci-author.md` explains how to work on GitHub workflow and CI behavior.
+- `reviewer.md` explains what AI review work should focus on.
+- `.github/workflows/ui-tests.yml` is the GitHub Actions workflow file.
+- `docs/` contains human-first project documentation.
+- `acceptance-criteria.md` captures the business-facing outcomes the project should prove.
+- `architecture.md` explains the runtime shape and repo structure.
+- `coding-standards.md` explains coding conventions.
+- `getting-started.md` contains local setup and run commands.
+- `testing-strategy.md` explains what we test and how the suites are structured.
+- `scripts/` contains helper scripts.
+- `wait_for_url.py` waits until the webshop is reachable before continuing with tests.
+- `tests/robot/` contains business-readable Robot suites.
+- `tests/resources/` contains reusable keywords and centralized locators.
+- `tests/variables/` contains environment values, browser, and timeouts.
+- `tests/data/` contains CSV-driven scenario input such as login credentials.
+- `webshop_app/` contains runtime assets for the system under test.
+- `docker-compose.yml` starts the upstream `OWASP Juice Shop` container.
+- `pyproject.toml` defines the Python project metadata and dependencies.
 
 ## GitHub Actions Workflow
+
 The workflow:
+
 - runs on pull requests
 - runs on pushes to `main`
 - keeps reporting native to Robot
 - avoids extra CI platforms or hosted environments in version 1
 
 It is the version-1 CI pipeline and does the following:
+
 1. checks out the repository
 2. sets up Python
 3. installs the project dependencies

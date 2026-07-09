@@ -1,5 +1,10 @@
 # Shared Agent Guidance
 
+## Purpose
+
+This file contains the repo-wide rules that apply across authoring, reviewing, and CI work.
+Role-specific agent files should build on this file instead of repeating it.
+
 ## Project Intent
 
 This repository demonstrates a maintainable Robot Framework UI automation setup against OWASP Juice Shop.
@@ -18,6 +23,9 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - Use `.agents/` for AI operating behavior
 - Treat generated folders like `*.egg-info/` and `results/` as non-source artifacts
 - Prefer direct shell commands over thin wrapper scripts when the wrapper adds no real behavior
+- Preserve Markdown formatting when editing docs and agent files
+- Keep literal paths, filenames, commands, and code identifiers wrapped in backticks when they are meant to stay literal
+- After rewriting a text file, re-read it and verify that no path, backtick, or control-character corruption was introduced
 
 ## Architecture Rules
 
@@ -25,6 +33,7 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - Keep business flows readable in Robot suites
 - Keep CI commands aligned with the documented local commands
 - Keep version-1 structure simple and explicit
+- Keep CSV-driven scenario data under `tests/data/`, not `tests/variables/`
 
 ## Selector Rules
 
@@ -39,3 +48,4 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - keep version 1 stable and teachable
 - avoid clever abstraction for its own sake
 - tighten live locators based on real test feedback, not speculation
+- prefer one reported Robot test per external data row when coverage is data-driven

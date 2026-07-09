@@ -13,11 +13,32 @@ This file keeps the project focused on user-visible outcomes rather than only co
 
 ### UI Coverage
 
+## Homepage
+
 - The homepage loads successfully
-- A user can discover a product
-- A user can open product details
+- The catalog is visible when the homepage opens
+
+## Product Discovery
+
+- A user can search for a product
+- The catalog still shows matching results after search
+
+## Product Details
+
+- A user can open product details from the catalog
+- The product details dialog is visible when opened
+
+## Basket
+
 - A user can add an item to the basket
 - The basket reflects the change
+- The basket contains at least one item after an add action
+
+## Login Function
+
+- A valid login row signs in successfully
+- An invalid login row shows failure feedback and stays signed out
+- Added login rows produce the same number of Robot test results
 
 ### CI
 

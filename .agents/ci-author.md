@@ -4,6 +4,10 @@
 
 Extend GitHub Actions without making version 1 harder to understand than necessary.
 
+## Base Rules
+
+Follow `shared.md` for repo-wide rules, especially command/doc alignment and safe editing of Markdown or helper files.
+
 ## Rules
 
 - keep GitHub Actions as the only implemented CI platform in version 1
