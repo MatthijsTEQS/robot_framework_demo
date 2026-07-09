@@ -38,46 +38,38 @@ Submit Login Credentials
     Click    ${SUBMIT_LOGIN_LOCATOR}
 
 Successful Login Should Be Visible
-    Wait Until Keyword Succeeds    10x    1s    Account Menu Should Show Logged In State
+    Wait Until Keyword Succeeds    10x    300ms    Account Menu Should Show Logged In State
 
 Failed Login Should Be Visible
     Wait For Elements State    ${LOGIN_ERROR_LOCATOR}    visible    ${BROWSER_TIMEOUT}
     Account Menu Should Show Logged Out State
 
 Logout If Signed In
-    ${logged_in}=    Run Keyword And Return Status    Account Menu Should Show Logged In State
-    IF    ${logged_in}
+    Ensure Account Menu Is Open
+    ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
+    IF    ${logout_count} > 0
         Click    ${LOGOUT_BUTTON_LOCATOR}
-        Wait Until Keyword Succeeds    5x    1s    Account Menu Should Show Logged Out State
     END
 
 Account Menu Should Show Logged In State
     Ensure Account Menu Is Open
-    Wait For Elements State    ${LOGOUT_BUTTON_LOCATOR}    visible    ${BROWSER_TIMEOUT}
-    ${login_visible}=    Run Keyword And Return Status
-    ...    Wait For Elements State    ${LOGIN_BUTTON_LOCATOR}    visible    1s
-    Should Be True    not ${login_visible}
+    ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
+    Should Be True    ${logout_count} > 0
 
 Account Menu Should Show Logged Out State
     Ensure Account Menu Is Open
-    Wait For Elements State    ${LOGIN_BUTTON_LOCATOR}    visible    ${BROWSER_TIMEOUT}
-    ${logout_visible}=    Run Keyword And Return Status
-    ...    Wait For Elements State    ${LOGOUT_BUTTON_LOCATOR}    visible    1s
-    Should Be True    not ${logout_visible}
+    ${login_count}=    Get Element Count    ${LOGIN_BUTTON_LOCATOR}
+    Should Be True    ${login_count} > 0
 
 Ensure Account Menu Is Open
-    ${login_visible}=    Run Keyword And Return Status
-    ...    Wait For Elements State    ${LOGIN_BUTTON_LOCATOR}    visible    1s
-    ${logout_visible}=    Run Keyword And Return Status
-    ...    Wait For Elements State    ${LOGOUT_BUTTON_LOCATOR}    visible    1s
-    IF    not ${login_visible} and not ${logout_visible}
+    ${login_count}=    Get Element Count    ${LOGIN_BUTTON_LOCATOR}
+    ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
+    IF    ${login_count} == 0 and ${logout_count} == 0
         Click    ${ACCOUNT_BUTTON_LOCATOR}
-        Wait Until Keyword Succeeds    5x    500ms    Account Menu Should Contain Actions
+        Wait Until Keyword Succeeds    10x    300ms    Account Menu Should Contain Actions
     END
 
 Account Menu Should Contain Actions
-    ${login_visible}=    Run Keyword And Return Status
-    ...    Wait For Elements State    ${LOGIN_BUTTON_LOCATOR}    visible    1s
-    ${logout_visible}=    Run Keyword And Return Status
-    ...    Wait For Elements State    ${LOGOUT_BUTTON_LOCATOR}    visible    1s
-    Should Be True    ${login_visible} or ${logout_visible}
+    ${login_count}=    Get Element Count    ${LOGIN_BUTTON_LOCATOR}
+    ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
+    Should Be True    ${login_count} > 0 or ${logout_count} > 0

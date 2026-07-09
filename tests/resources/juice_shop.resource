@@ -28,10 +28,8 @@ Wait Until Shop Catalog Loads
     Wait For Elements State    ${FIRST_CATALOG_CARD_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Dismiss Startup Dialogs
-    Click If Present    text=Dismiss
-    Click If Present    text=Me want it!
-    Click If Present    css=button[aria-label*="Close Welcome Banner"]
-    Click If Present    css=a[aria-label*="dismiss cookie message"], button[aria-label*="cookie"]
+    Click If Visible    text=Dismiss
+    Click If Visible    text=Me want it!
 
 Search For Product
     [Arguments]    ${search_term}
@@ -41,12 +39,11 @@ Search For Product
     Wait For Elements State    ${FIRST_CATALOG_CARD_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Ensure Search Input Is Visible
-    ${search_visible}=    Run Keyword And Return Status
-    ...    Wait For Elements State    ${SEARCH_INPUT_LOCATOR}    visible    3s
-    IF    not ${search_visible}
-        Click If Present    ${SEARCH_TOGGLE_LOCATOR}
-        Wait For Elements State    ${SEARCH_INPUT_LOCATOR}    visible    ${BROWSER_TIMEOUT}
+    ${search_count}=    Get Element Count    ${SEARCH_INPUT_LOCATOR}
+    IF    ${search_count} == 0
+        Click If Visible    ${SEARCH_TOGGLE_LOCATOR}
     END
+    Wait For Elements State    ${SEARCH_INPUT_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Open First Product Details
     Wait For Elements State    ${FIRST_PRODUCT_IMAGE_LOCATOR}    visible    ${BROWSER_TIMEOUT}
@@ -54,13 +51,13 @@ Open First Product Details
     Wait For Elements State    ${PRODUCT_DETAILS_DIALOG_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Close Product Details
-    Click If Present    ${PRODUCT_DETAILS_CLOSE_LOCATOR}
+    Click If Visible    ${PRODUCT_DETAILS_CLOSE_LOCATOR}
 
 Add First Visible Product To Basket
     Wait For Elements State    ${FIRST_ADD_TO_BASKET_LOCATOR}    visible    ${BROWSER_TIMEOUT}
     ${before}=    Read Basket Count
     Click    ${FIRST_ADD_TO_BASKET_LOCATOR}
-    Wait Until Keyword Succeeds    10x    1s    Basket Count Should Be Greater Than    ${before}
+    Wait Until Keyword Succeeds    10x    300ms    Basket Count Should Be Greater Than    ${before}
 
 Open Basket
     Click    ${BASKET_BUTTON_LOCATOR}
@@ -92,9 +89,10 @@ Catalog Should Show Products
 Details Dialog Should Be Visible
     Wait For Elements State    ${PRODUCT_DETAILS_DIALOG_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
-Click If Present
+Click If Visible
     [Arguments]    ${locator}
-    ${status}    ${message}=    Run Keyword And Ignore Error    Wait For Elements State    ${locator}    visible    2s
-    IF    '${status}' == 'PASS'
-        ${click_status}    ${click_message}=    Run Keyword And Ignore Error    Click    ${locator}
+    ${is_visible}=    Run Keyword And Return Status
+    ...    Wait For Elements State    ${locator}    visible    1s
+    IF    ${is_visible}
+        Click With Options    ${locator}    force=True
     END
