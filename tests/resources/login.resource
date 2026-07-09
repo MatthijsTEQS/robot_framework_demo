@@ -9,6 +9,7 @@ ${LOGOUT_BUTTON_LOCATOR}                   css=#navbarLogoutButton
 ${EMAIL_INPUT_LOCATOR}                     css=#email
 ${PASSWORD_INPUT_LOCATOR}                  css=#password
 ${SUBMIT_LOGIN_LOCATOR}                    css=#loginButton
+${LOGIN_ERROR_LOCATOR}                     text=Invalid email or password.
 ${REGISTER_LINK_LOCATOR}                   css=a[href*="register"]
 ${REGISTER_EMAIL_INPUT_LOCATOR}            css=#emailControl
 ${REGISTER_PASSWORD_INPUT_LOCATOR}         css=#passwordControl
@@ -22,6 +23,8 @@ ${REGISTER_SECURITY_ANSWER}                robot-answer
 ${ACCOUNT_PREFIX}                          testaccount
 ${ACCOUNT_DOMAIN}                          teqs-consulting.com
 ${DEFAULT_ACCOUNT_PASSWORD}                SecretPassword!
+${INVALID_ACCOUNT_PASSWORD}                WrongSecretPassword!
+${INVALID_ACCOUNT_PREFIX}                  invalid-
 
 *** Keywords ***
 Create Generated Account
@@ -38,6 +41,21 @@ Login With Generated Account
     Submit Login Credentials    ${LOGIN_ACCOUNT_EMAIL}    ${LOGIN_ACCOUNT_PASSWORD}
     Successful Login Should Be Visible
     Logout If Signed In
+
+Login With Wrong Password Should Fail
+    Variable Should Exist    ${LOGIN_ACCOUNT_EMAIL}
+    Variable Should Exist    ${LOGIN_ACCOUNT_PASSWORD}
+    Open Login Page
+    Submit Login Credentials    ${LOGIN_ACCOUNT_EMAIL}    ${INVALID_ACCOUNT_PASSWORD}
+    Failed Login Should Be Visible
+
+Login With Wrong Username Should Fail
+    Variable Should Exist    ${LOGIN_ACCOUNT_EMAIL}
+    Variable Should Exist    ${LOGIN_ACCOUNT_PASSWORD}
+    ${wrong_email}=    Set Variable    ${INVALID_ACCOUNT_PREFIX}${LOGIN_ACCOUNT_EMAIL}
+    Open Login Page
+    Submit Login Credentials    ${wrong_email}    ${LOGIN_ACCOUNT_PASSWORD}
+    Failed Login Should Be Visible
 
 Generate Account Credentials
     ${timestamp}=    Evaluate    __import__("datetime").datetime.utcnow().strftime("%H%M%S")
@@ -80,6 +98,9 @@ Submit Login Credentials
 
 Successful Login Should Be Visible
     Wait Until Keyword Succeeds    10x    300ms    Account Menu Should Show Logged In State
+
+Failed Login Should Be Visible
+    Wait For Elements State    ${LOGIN_ERROR_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Logout If Signed In
     Ensure Account Menu Is Open
