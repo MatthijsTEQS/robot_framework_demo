@@ -36,9 +36,9 @@ This file keeps the project focused on user-visible outcomes rather than only co
 
 ## Login Function
 
-- A valid login row signs in successfully
-- An invalid login row shows failure feedback and stays signed out
-- Added login rows produce the same number of Robot test results
+- A fresh account can be created through the UI with a timestamped `testaccountHHMMSS` name
+- The next login test can sign in with that newly created account
+- Successful login coverage logs out cleanly after sign-in
 
 ### CI
 

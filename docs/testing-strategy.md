@@ -39,10 +39,10 @@ The suite structure should stay readable at the page or feature level, similar t
 ## Login Function
 
 - keep login coverage in a dedicated suite
-- drive login scenarios from `tests/data/login_credentials.csv`
-- create one Robot result per CSV row
-- cover both successful and failed login outcomes
-- reset state by logging out after successful login rows
+- create one fresh account through the UI
+- use a generated account name in the form `testaccountHHMMSS@example.com`
+- log into that newly created account in the next test
+- keep the flow simple and explicit without custom data readers or external CSV data
 
 ## Structure Rules
 
@@ -50,8 +50,7 @@ The suite structure should stay readable at the page or feature level, similar t
 - Resource files hold reusable actions and locators
 - Selectors stay out of the suite files
 - Keywords stay readable and explicit
-- CSV-driven suites keep test data outside `tests/variables/`
-- each credential row should be isolated and repeatable
+- keep generated test data deterministic and easy to understand
 
 ## Selector Policy
 

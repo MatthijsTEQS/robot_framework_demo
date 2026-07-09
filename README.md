@@ -31,7 +31,6 @@ Start with `docs/getting-started.md`.
 - `tests/robot/` contains business-readable Robot suites.
 - `tests/resources/` contains reusable keywords and centralized locators.
 - `tests/variables/` contains environment values, browser, and timeouts.
-- `tests/data/` contains CSV-driven scenario input such as login credentials.
 - `webshop_app/` contains runtime assets for the system under test.
 - `docker-compose.yml` starts the upstream `OWASP Juice Shop` container.
 - `pyproject.toml` defines the Python project metadata and dependencies.

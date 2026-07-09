@@ -33,7 +33,6 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - Keep business flows readable in Robot suites
 - Keep CI commands aligned with the documented local commands
 - Keep version-1 structure simple and explicit
-- Keep CSV-driven scenario data under `tests/data/`, not `tests/variables/`
 
 ## Selector Rules
 
@@ -48,4 +47,3 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - keep version 1 stable and teachable
 - avoid clever abstraction for its own sake
 - tighten live locators based on real test feedback, not speculation
-- prefer one reported Robot test per external data row when coverage is data-driven

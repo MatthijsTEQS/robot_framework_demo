@@ -31,7 +31,6 @@ The app under test is ephemeral:
 - `tests/robot/` contains Robot suites
 - `tests/resources/` contains reusable UI keywords and locators
 - `tests/variables/` contains environment values and shared test settings
-- `tests/data/` contains CSV-driven scenario input such as login credentials
 - `scripts/` contains helper scripts
 - `docs/` contains human-first project truth
 - `.agents/` contains AI operating instructions

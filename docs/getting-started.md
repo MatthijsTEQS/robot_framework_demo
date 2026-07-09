@@ -39,14 +39,9 @@ Record a video of the tests:
 python -m robot --outputdir results --variable RECORD_VIDEO:True --variable HEADLESS:False tests/robot
 ```
 
-## Login Test Data
+## Login Flow
 
-The login suite reads credentials from `tests/data/login_credentials.csv`.
-
-- each CSV row becomes its own Robot test result
-- add more rows to expand coverage without editing the suite
-- the first CSV column is the DataDriver test title field
-- the remaining columns define the credential values and expected outcome
+The login suite creates a fresh account with a name like `testaccountHHMMSS@example.com` and then logs in with that same account in the next test.
 
 ## Stop The Webshop
 

@@ -16,8 +16,6 @@ Follow `shared.md` for repo-wide rules, including Markdown integrity, literal pa
 - Favor business-level test names
 - Preserve screenshot-friendly failure output
 - Prefer live-app feedback to theoretical locator design when refining selectors
-- Put CSV-driven test input under `tests/data/`
-- Preserve one-row-per-test reporting when a suite is data-driven
 
 ## When Adding New Coverage
 
