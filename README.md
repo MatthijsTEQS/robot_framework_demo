@@ -29,13 +29,13 @@ Start with `docs/getting-started.md`.
 - `scripts/` contains helper scripts.
 - `scripts/test_support/` contains Python-backed helpers for tests, such as CSV readers.
 - `wait_for_url.py` waits until the webshop is reachable before continuing with tests.
-- `tests/data/` contains CSV-based scenario input for search coverage.
+- `tests/data/` contains CSV- and Excel-based scenario input for search coverage.
 - `tests/robot/` contains business-readable Robot suites.
 - `tests/resources/` contains reusable keywords and centralized locators.
 - `tests/variables/` contains Robot variable resources for environment values, browser, and timeouts.
 - `webshop_app/` contains runtime assets for the system under test.
 - `docker-compose.yml` starts the upstream `OWASP Juice Shop` container.
-- `pyproject.toml` defines the Python project metadata and dependencies, including `robotframework-browser` and `robotframework-datadriver`.
+- `pyproject.toml` defines the Python project metadata and dependencies, including `robotframework-browser`, `robotframework-datadriver`, and `rpaframework`.
 
 ## GitHub Actions Workflow
 

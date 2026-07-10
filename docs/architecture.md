@@ -2,9 +2,9 @@
 
 ## Runtime Shape
 
-This project demonstrates a maintainable Robot Framework UI automation setup for a containerized webshop.
-It uses the `OWASP Juice Shop` as the System under Test. The app runs from the official upstream container image through Docker Compose.
-Robot Framework runs locally and on the GitHub Actions runner in CI.
+Version 1 uses `OWASP Juice Shop` as the single system under test.
+The app runs from the official upstream container image through Docker Compose.
+Robot Framework runs directly on the developer machine locally and directly on the GitHub Actions runner in CI.
 
 ## Test Architecture
 
@@ -29,7 +29,7 @@ The repository is organized like this:
 - `webshop_app/` contains Docker Compose assets for the webshop runtime
 - `tests/robot/` contains Robot suites
 - `tests/resources/` contains reusable UI keywords and locators
-- `tests/data/` contains CSV scenario input for data-driven coverage
+- `tests/data/` contains CSV and Excel scenario input for data-driven coverage
 - `tests/variables/` contains environment values and shared Robot settings
 - `scripts/` contains helper scripts
 - `scripts/test_support/` contains Python-backed test helpers such as CSV readers
@@ -39,12 +39,13 @@ The repository is organized like this:
 
 ## Search Coverage Variants
 
-The repository demonstrates two ways to drive the same search assertions from CSV data:
+The repository demonstrates three ways to drive the same search assertions from external test data:
 
 - `search_method_1.robot` loads `search_keywords.csv` through a small Python variable file in `scripts/test_support/`
 - `search_method_2.robot` loads `search_keywords_datadriver.csv` through `robotframework-datadriver`
+- `search_method_3.robot` loads `search_keywords.xlsx` through `RPA.Excel.Files`
 
-This keeps the acceptance logic shared while showing two different data-loading approaches.
+This keeps the acceptance logic shared while showing three different data-loading approaches.
 
 ## CI Shape
 
