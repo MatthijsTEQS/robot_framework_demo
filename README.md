@@ -15,8 +15,8 @@ Start with `docs/getting-started.md`.
 ## File Structure
 
 - `.agents/` contains AI instructions to help AI tools behave consistently in the repo.
-- `shared.md` defines common project rules, scope boundaries, selector rules, and the general testing philosophy.
-- `robot-author.md` explains how to create or refine Robot UI tests, where selectors belong, and what patterns to avoid.
+- `shared.md` defines common project rules, scope boundaries, selector rules, and helper-code placement rules.
+- `robot-author.md` explains how to create or refine Robot UI tests, where selectors belong, where Python test helpers belong, and what patterns to avoid.
 - `ci-author.md` explains how to work on GitHub workflow and CI behavior.
 - `reviewer.md` explains what AI review work should focus on.
 - `.github/workflows/ui-tests.yml` is the GitHub Actions workflow file.
@@ -27,13 +27,15 @@ Start with `docs/getting-started.md`.
 - `getting-started.md` contains local setup and run commands.
 - `testing-strategy.md` explains what we test and how the suites are structured.
 - `scripts/` contains helper scripts.
+- `scripts/test_support/` contains Python-backed helpers for tests, such as CSV readers.
 - `wait_for_url.py` waits until the webshop is reachable before continuing with tests.
+- `tests/data/` contains CSV-based scenario input for search coverage.
 - `tests/robot/` contains business-readable Robot suites.
 - `tests/resources/` contains reusable keywords and centralized locators.
-- `tests/variables/` contains environment values, browser, and timeouts.
+- `tests/variables/` contains Robot variable resources for environment values, browser, and timeouts.
 - `webshop_app/` contains runtime assets for the system under test.
 - `docker-compose.yml` starts the upstream `OWASP Juice Shop` container.
-- `pyproject.toml` defines the Python project metadata and dependencies.
+- `pyproject.toml` defines the Python project metadata and dependencies, including `robotframework-browser` and `robotframework-datadriver`.
 
 ## GitHub Actions Workflow
 

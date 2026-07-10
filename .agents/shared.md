@@ -23,6 +23,7 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - Use `.agents/` for AI operating behavior
 - Treat generated folders like `*.egg-info/` and `results/` as non-source artifacts
 - Prefer direct shell commands over thin wrapper scripts when the wrapper adds no real behavior
+- Keep Python helper code under `scripts/`, grouped by purpose when useful
 - Preserve Markdown formatting when editing docs and agent files
 - Keep literal paths, filenames, commands, and code identifiers wrapped in backticks when they are meant to stay literal
 - After rewriting a text file, re-read it and verify that no path, backtick, or control-character corruption was introduced

@@ -16,6 +16,7 @@ Follow `shared.md` for repo-wide rules, including Markdown integrity, literal pa
 - Favor business-level test names
 - Preserve screenshot-friendly failure output
 - Prefer live-app feedback to theoretical locator design when refining selectors
+- Keep DataDriver template keywords in the suite file that imports `DataDriver`
 
 ## When Adding New Coverage
 

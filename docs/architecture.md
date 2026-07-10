@@ -1,44 +1,59 @@
 # Architecture
 
-## Purpose
+## Runtime Shape
 
 This project demonstrates a maintainable Robot Framework UI automation setup for a containerized webshop.
+It uses the `OWASP Juice Shop` as the System under Test. The app runs from the official upstream container image through Docker Compose.
+Robot Framework runs locally and on the GitHub Actions runner in CI.
 
-## Version 1 Architecture
+## Test Architecture
 
-Version 1 has two runtime parts:
+The UI automation stack is:
 
-1. `OWASP Juice Shop` running in Docker
-2. `Robot Framework + Browser` running from Python on the host or GitHub runner
+- `Python`
+- `Robot Framework`
+- `Robot Framework Browser`
+- `Playwright` through the Browser library
 
-The app under test is ephemeral:
+The test design stays lightweight:
 
-- local developers start it with Docker Compose
-- GitHub Actions starts it inside the workflow
-- there is no always-on hosted environment in version 1
+- Robot suites describe business flows and acceptance outcomes
+- resource files hold reusable UI actions and locators
+- selectors stay out of suite files
+- tests stay readable and business-oriented
 
-## Key Design Rules
+## Repository Structure
 
-- Keep the app startup reproducible
-- Keep Robot test execution simple
-- Keep selectors centralized in resource files
-- Keep business flows readable in the test suites
-- Keep version 1 GitHub-only for CI implementation
+The repository is organized like this:
 
-## Repository Areas
-
-- `webshop_app/` contains Docker Compose and runtime assets
+- `webshop_app/` contains Docker Compose assets for the webshop runtime
 - `tests/robot/` contains Robot suites
 - `tests/resources/` contains reusable UI keywords and locators
-- `tests/variables/` contains environment values and shared test settings
+- `tests/data/` contains CSV scenario input for data-driven coverage
+- `tests/variables/` contains environment values and shared Robot settings
 - `scripts/` contains helper scripts
-- `docs/` contains human-first project truth
+- `scripts/test_support/` contains Python-backed test helpers such as CSV readers
+- `.github/workflows/` contains GitHub Actions workflows
+- `docs/` contains human-first project documentation
 - `.agents/` contains AI operating instructions
 
-## What Is Deliberately Not In Version 1
+## Search Coverage Variants
 
-- hosted test environments
-- a containerized Robot runner
-- API testing
-- Jenkins or GitLab CI implementation
-- mandatory BDD or Screenplay patterns
+The repository demonstrates two ways to drive the same search assertions from CSV data:
+
+- `search_method_1.robot` loads `search_keywords.csv` through a small Python variable file in `scripts/test_support/`
+- `search_method_2.robot` loads `search_keywords_datadriver.csv` through `robotframework-datadriver`
+
+This keeps the acceptance logic shared while showing two different data-loading approaches.
+
+## CI Shape
+
+The CI pipeline is intentionally simple:
+
+- start Juice Shop with Docker Compose
+- wait for readiness
+- run Robot suites
+- upload Robot artifacts
+- tear down the container
+
+There is no hosted environment in version 1.

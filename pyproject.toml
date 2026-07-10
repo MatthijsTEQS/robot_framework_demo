@@ -10,6 +10,7 @@ requires-python = ">=3.11"
 dependencies = [
   "robotframework>=7.0,<8.0",
   "robotframework-browser>=18.0,<19.0",
+  "robotframework-datadriver>=1.11,<2.0",
 ]
 
 [project.optional-dependencies]

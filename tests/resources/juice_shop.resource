@@ -4,13 +4,14 @@ Library    Collections
 Resource   browser_setup.resource
 
 *** Variables ***
-${CATALOG_CARD_LOCATOR}             css=mat-card
-${FIRST_CATALOG_CARD_LOCATOR}       css=mat-card >> nth=0
-${SEARCH_TOGGLE_LOCATOR}            css=button[aria-label*="search"], button[mattooltip*="Search"], mat-icon[fonticon="search"], app-mat-search-bar[aria-label*="search"]
-${SEARCH_INPUT_LOCATOR}             css=app-mat-search-bar input, input[aria-label*="search" i], input[placeholder*="Search" i], input[type="search"]
-${PRODUCT_IMAGE_LOCATOR}            css=mat-card img
-${FIRST_PRODUCT_IMAGE_LOCATOR}      css=mat-card img >> nth=0
-${PRODUCT_NAME_LOCATOR}             css=mat-card .item-name, mat-card-title
+${CATALOG_CARD_LOCATOR}             css=mat-card:visible
+${FIRST_CATALOG_CARD_LOCATOR}       css=mat-card:visible >> nth=0
+${SEARCH_OPEN_BUTTON_LOCATOR}       css=button[aria-label*="Open search" i]
+${SEARCH_INPUT_LOCATOR}             css=app-mat-search-bar input:visible, input[aria-label*="search" i]:visible, input[placeholder*="Search" i]:visible, input[type="search"]:visible
+${NO_RESULTS_LOCATOR}               text=No results found
+${PRODUCT_IMAGE_LOCATOR}            css=mat-card:visible img
+${FIRST_PRODUCT_IMAGE_LOCATOR}      css=mat-card:visible img >> nth=0
+${PRODUCT_NAME_LOCATOR}             css=mat-card:visible .item-name, mat-card-title
 ${ADD_TO_BASKET_LOCATOR}            css=button[aria-label*="Add to Basket"], button[mattooltip*="Add to Basket"]
 ${FIRST_ADD_TO_BASKET_LOCATOR}      css=button[aria-label*="Add to Basket"], button[mattooltip*="Add to Basket"] >> nth=0
 ${BASKET_BUTTON_LOCATOR}            css=button[aria-label*="shopping cart"], button[mattooltip*="Show the shopping cart"]
@@ -33,16 +34,23 @@ Dismiss Startup Dialogs
 
 Search For Product
     [Arguments]    ${search_term}
-    Ensure Search Input Is Visible
-    Clear Text    ${SEARCH_INPUT_LOCATOR}
-    Fill Text    ${SEARCH_INPUT_LOCATOR}    ${search_term}
-    Wait For Elements State    ${FIRST_CATALOG_CARD_LOCATOR}    visible    ${BROWSER_TIMEOUT}
+    Ensure Search Input Is Ready
+    Type Text    ${SEARCH_INPUT_LOCATOR}    ${search_term}
+    Press Keys    ${SEARCH_INPUT_LOCATOR}    Enter
+    Wait For Elements State    text=Search Results - ${search_term}    visible    ${BROWSER_TIMEOUT}
 
-Ensure Search Input Is Visible
-    ${search_count}=    Get Element Count    ${SEARCH_INPUT_LOCATOR}
-    IF    ${search_count} == 0
-        Click If Visible    ${SEARCH_TOGGLE_LOCATOR}
+Search Results Should Match
+    [Arguments]    ${search_term}    ${expected_result_count}
+    ${expected_count}=    Convert To Integer    ${expected_result_count}
+    Search For Product    ${search_term}
+    IF    ${expected_count} == 0
+        Wait Until Keyword Succeeds    10x    300ms    No Results Message Should Be Visible
+    ELSE
+        Wait Until Keyword Succeeds    10x    300ms    Catalog Should Show Exact Product Count    ${expected_count}
     END
+
+Ensure Search Input Is Ready
+    Click If Visible    ${SEARCH_OPEN_BUTTON_LOCATOR}
     Wait For Elements State    ${SEARCH_INPUT_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Open First Product Details
@@ -85,6 +93,14 @@ Basket Should Contain At Least One Item
 Catalog Should Show Products
     ${cards}=    Get Element Count    ${CATALOG_CARD_LOCATOR}
     Should Be True    ${cards} >= 1
+
+Catalog Should Show Exact Product Count
+    [Arguments]    ${expected_count}
+    ${cards}=    Get Element Count    ${CATALOG_CARD_LOCATOR}
+    Should Be Equal As Integers    ${cards}    ${expected_count}
+
+No Results Message Should Be Visible
+    Wait For Elements State    ${NO_RESULTS_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Details Dialog Should Be Visible
     Wait For Elements State    ${PRODUCT_DETAILS_DIALOG_LOCATOR}    visible    ${BROWSER_TIMEOUT}
