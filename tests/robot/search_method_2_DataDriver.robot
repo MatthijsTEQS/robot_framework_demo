@@ -1,3 +1,6 @@
+# Search method 2: Robot Framework DataDriver.
+# DataDriver creates one Robot test per row and starts a fresh browser session for each generated test.
+
 *** Settings ***
 Documentation    Search coverage for OWASP Juice Shop using Robot Framework DataDriver.
 Library          DataDriver
@@ -11,11 +14,8 @@ Test Teardown    Handle Test Cleanup
 Test Template    Search Row Should Match
 
 *** Test Cases ***
-Search for "${keyword}" should return ${amount_of_results} results
-    [Documentation]    Fresh browser session for every CSV Row. Verify that every search row from the CSV produces the expected catalog result.
-    # placeholder 0 supplies the two arguments required by the template keyword: Test Template, Search Row Should Match.
-    # placeholder = keyword, 0 = amount_of_results
-    placeholder    0
+Search for "${keyword}" should return ${amount_of_results} results    keyword    results
+    [Documentation]    Use the DataDriver row values as the search input and expected result count.
 
 *** Keywords ***
 Search Row Should Match

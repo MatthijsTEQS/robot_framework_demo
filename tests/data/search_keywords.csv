@@ -1,4 +1,4 @@
-keyword,amount_of_results
-apple,3
-banana,1
-mango,0
+Test Case Description,Input,Expectation,Documentation
+Search apple should show 3 results,apple,3,Verify apple returns three visible product tiles.
+Search banana should show 1 result,banana,1,Verify banana returns one visible product tile.
+Search mango should show no results,mango,0,Verify mango shows the no-results message.

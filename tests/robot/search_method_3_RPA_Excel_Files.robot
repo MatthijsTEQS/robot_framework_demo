@@ -1,3 +1,6 @@
+# Search method 3: RPA.Excel.Files.
+# The suite reads the workbook into memory and keeps one browser session open while it iterates through the rows.
+
 *** Settings ***
 Documentation    Search coverage for OWASP Juice Shop using RPA.Excel.Files.
 Library          Collections
@@ -9,21 +12,19 @@ Test Teardown    Handle Test Cleanup
 *** Variables ***
 ${SEARCH_EXCEL_FILE}           ${CURDIR}/../data/search_keywords.xlsx
 ${SEARCH_WORKSHEET_NAME}       SearchCases
-${KEYWORD_COLUMN}              keyword
-${RESULT_COUNT_COLUMN}         amount_of_results
 
 *** Test Cases ***
 Search Keywords From Excel With RPA Excel Files
-    [Documentation]    Reuse browser session for every Excel Row. Verify that every search row from the workbook produces the expected catalog result.
-    ${search_cases}=    Load Search Cases From Excel
-    FOR    ${case}    IN    @{search_cases}
-        ${keyword}=    Get From Dictionary    ${case}    ${KEYWORD_COLUMN}
-        ${amount_of_results}=    Get From Dictionary    ${case}    ${RESULT_COUNT_COLUMN}
-        Run Keyword And Continue On Failure    Search Results Should Match    ${keyword}    ${amount_of_results}
+    [Documentation]    Verify that each workbook row produces the expected search result.
+    ${rows}=    Load Search Rows From Excel
+    FOR    ${row}    IN    @{rows}
+        ${input}=    Get From Dictionary    ${row}    Input
+        ${expectation}=    Get From Dictionary    ${row}    Expectation
+        Run Keyword And Continue On Failure    Search Results Should Match    ${input}    ${expectation}
     END
 
 *** Keywords ***
-Load Search Cases From Excel
+Load Search Rows From Excel
     Open Workbook    ${SEARCH_EXCEL_FILE}
     ${rows}=    Read Worksheet    name=${SEARCH_WORKSHEET_NAME}    header=${TRUE}
     Close Workbook

@@ -1,15 +1,15 @@
-"""Load CSV-driven search expectations for Robot suites that use a Python variable file."""
+"""Load search rows from the CSV file."""
 
 from __future__ import annotations
 
 import csv
 from pathlib import Path
 
-__all__ = ["SEARCH_CASES"]
+__all__ = ["ROWS"]
 
 
-def _load_search_cases() -> list[dict[str, int | str]]:
-    """Return search cases with normalized keywords and integer result counts."""
+def _load_rows() -> list[dict[str, int | str]]:
+    """Return normalized rows from the CSV file."""
     data_path = (
         Path(__file__).resolve().parents[2]
         / "tests"
@@ -20,11 +20,11 @@ def _load_search_cases() -> list[dict[str, int | str]]:
         reader = csv.DictReader(handle)
         return [
             {
-                "keyword": row["keyword"].strip(),
-                "amount_of_results": int(row["amount_of_results"]),
+                "input": row["Input"].strip(),
+                "expectation": int(row["Expectation"]),
             }
             for row in reader
         ]
 
 
-SEARCH_CASES = _load_search_cases()
+ROWS = _load_rows()

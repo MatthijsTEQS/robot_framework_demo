@@ -29,7 +29,7 @@ The repository is organized like this:
 - `webshop_app/` contains Docker Compose assets for the webshop runtime
 - `tests/robot/` contains Robot suites
 - `tests/resources/` contains reusable UI keywords and locators
-- `tests/data/` contains CSV and Excel scenario input for data-driven coverage
+- `tests/data/` contains CSV and Excel scenario input for search coverage
 - `tests/variables/` contains environment values and shared Robot settings
 - `scripts/` contains helper scripts
 - `scripts/test_support/` contains Python-backed test helpers such as CSV readers
@@ -41,11 +41,11 @@ The repository is organized like this:
 
 The repository demonstrates three ways to drive the same search assertions from external test data:
 
-- `search_method_1.robot` loads `search_keywords.csv` through a small Python variable file in `scripts/test_support/`
-- `search_method_2.robot` loads `search_keywords_datadriver.csv` through `robotframework-datadriver`
-- `search_method_3.robot` loads `search_keywords.xlsx` through `RPA.Excel.Files`
+- `search_method_1_Python_Reader.robot` loads `search_keywords.csv` through a small Python helper in `scripts/test_support/`
+- `search_method_2_DataDriver.robot` loads `search_keywords_datadriver.csv` directly through `robotframework-datadriver`
+- `search_method_3_RPA_Excel_Files.robot` reads `search_keywords.xlsx`
 
-This keeps the acceptance logic shared while showing three different data-loading approaches.
+This keeps the acceptance logic shared while showing different data-loading approaches.
 
 ## CI Shape
 
