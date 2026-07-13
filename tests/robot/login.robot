@@ -2,6 +2,7 @@
 Documentation    Login coverage for OWASP Juice Shop.
 Resource         ../resources/login.resource
 Resource         ../resources/browser_setup.resource
+Test Setup       Open Shop Homepage
 Test Teardown    Handle Test Cleanup
 
 *** Test Cases ***

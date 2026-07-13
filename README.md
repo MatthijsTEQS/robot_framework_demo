@@ -32,15 +32,14 @@ Start with `docs/getting-started.md`.
 
 - `scripts/` contains helper scripts grouped by purpose.
     - `wait_for_url.py` performs the shared readiness polling used by CI and local runs.
-    - `/reporting/build_pages_site.py` copies the latest native Robot outputs into a static site folder and writes a landing page for GitHub Pages.
+    - `reporting/build_pages_site.py` copies the latest native Robot outputs into a static site folder and writes a landing page for GitHub Pages.
     - `test_support/search_cases.py` contains Python-backed helpers used by tests, such as CSV readers.
 
 - `tests/data/` contains CSV- and Excel-based scenario input for search coverage.
 - `tests/robot/` contains business-readable Robot suites.
 - `tests/resources/` contains reusable keywords and centralized locators.
 - `tests/variables/` contains Robot variable resources for environment values, browser, and timeouts.
-- `webshop_app/` contains runtime assets for the system under test.
-- `docker-compose.yml` starts the upstream `OWASP Juice Shop` container.
+- `webshop_app/docker-compose.yml` contains runtime assets for the upstream `OWASP Juice Shop` container.
 - `pyproject.toml` defines the Python project metadata and dependencies, including `robotframework-browser`, `robotframework-datadriver`, and `rpaframework`.
 
 ## GitHub Actions Workflow

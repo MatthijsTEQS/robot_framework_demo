@@ -1,6 +1,7 @@
 *** Settings ***
 Library    Browser
 Library    Collections
+Library    String
 Resource   browser_setup.resource
 
 *** Variables ***
@@ -15,6 +16,9 @@ ${PRODUCT_NAME_LOCATOR}             css=mat-card:visible .item-name, mat-card-ti
 ${ADD_TO_BASKET_LOCATOR}            css=button[aria-label*="Add to Basket"], button[mattooltip*="Add to Basket"]
 ${FIRST_ADD_TO_BASKET_LOCATOR}      css=button[aria-label*="Add to Basket"], button[mattooltip*="Add to Basket"] >> nth=0
 ${BASKET_BUTTON_LOCATOR}            css=button[aria-label*="shopping cart"], button[mattooltip*="Show the shopping cart"]
+${BASKET_COUNT_LOCATOR}             css=button[aria-label*="shopping cart"] .warn-notification
+${BASKET_PAGE_TITLE_LOCATOR}        css=app-basket h1
+${BASKET_TOTAL_PRICE_LOCATOR}       css=#price
 ${BASKET_ITEM_ROW_LOCATOR}          css=mat-row, tr.mat-mdc-row, .basket-item
 ${PRODUCT_DETAILS_DIALOG_LOCATOR}   css=mat-dialog-container
 ${PRODUCT_DETAILS_CLOSE_LOCATOR}    css=mat-dialog-container button[aria-label*="Close"], mat-dialog-container button[mat-dialog-close]
@@ -41,7 +45,7 @@ Search For Product
 
 Wait For Search State
     [Arguments]    ${search_term}
-    ${normalized_search_term}=    Evaluate    str($search_term).strip()
+    ${normalized_search_term}=    Strip String    ${search_term}
     IF    $search_term == '' # Check for truly empty string
         Wait Until Shop Catalog Loads
     ELSE IF    $normalized_search_term == '' # Check for whitespace-only string
@@ -80,15 +84,16 @@ Add First Visible Product To Basket
 
 Open Basket
     Click    ${BASKET_BUTTON_LOCATOR}
-    Wait For Elements State    ${BASKET_ITEM_ROW_LOCATOR}    visible    ${BROWSER_TIMEOUT}
+    Wait For Elements State    ${BASKET_PAGE_TITLE_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Read Basket Count
-    ${count_text}=    Get Text    ${BASKET_BUTTON_LOCATOR}
-    ${numbers}=    Evaluate    __import__("re").findall(r"\\d+", """${count_text}""")
-    IF    ${numbers}
-        RETURN    ${numbers}[-1]
+    ${counter_count}=    Get Element Count    ${BASKET_COUNT_LOCATOR}
+    IF    ${counter_count} == 0
+        RETURN    0
     END
-    RETURN    0
+    ${count_text}=    Get Text    ${BASKET_COUNT_LOCATOR}
+    ${normalized_count}=    Strip String    ${count_text}
+    RETURN    ${normalized_count}
 
 Basket Count Should Be Greater Than
     [Arguments]    ${baseline}

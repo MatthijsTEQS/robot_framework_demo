@@ -30,9 +30,11 @@ This file keeps the project focused on user-visible outcomes rather than only co
 
 ## Basket
 
-- A user can add an item to the basket
-- The basket reflects the change
-- The basket contains at least one item after an add action
+- An anonymous shopper can open an empty basket and see zero products
+- An anonymous shopper can add one product and see the basket reflect that quantity
+- An anonymous shopper can add three products and see the basket reflect that quantity
+- A signed-in shopper can open a basket with one product and increase the quantity with the plus control
+- The basket total updates correctly when the signed-in shopper increases quantity
 
 ## Login Function
 

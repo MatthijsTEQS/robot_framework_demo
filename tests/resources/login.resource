@@ -1,5 +1,6 @@
 *** Settings ***
 Library    Browser
+Library    DateTime
 Resource   juice_shop.resource
 
 *** Variables ***
@@ -48,6 +49,7 @@ Login With Wrong Password Should Fail
     Open Login Page
     Submit Login Credentials    ${LOGIN_ACCOUNT_EMAIL}    ${INVALID_ACCOUNT_PASSWORD}
     Failed Login Should Be Visible
+    Account Menu Should Show Logged Out State
 
 Login With Wrong Username Should Fail
     Variable Should Exist    ${LOGIN_ACCOUNT_EMAIL}
@@ -56,15 +58,15 @@ Login With Wrong Username Should Fail
     Open Login Page
     Submit Login Credentials    ${wrong_email}    ${LOGIN_ACCOUNT_PASSWORD}
     Failed Login Should Be Visible
+    Account Menu Should Show Logged Out State
 
 Generate Account Credentials
-    ${timestamp}=    Evaluate    __import__("datetime").datetime.utcnow().strftime("%H%M%S")
+    ${timestamp}=    Get Current Date    result_format=%H%M%S
     ${email}=    Set Variable    ${ACCOUNT_PREFIX}${timestamp}@${ACCOUNT_DOMAIN}
     Set Suite Variable    ${LOGIN_ACCOUNT_EMAIL}    ${email}
     Set Suite Variable    ${LOGIN_ACCOUNT_PASSWORD}    ${DEFAULT_ACCOUNT_PASSWORD}
 
 Open Login Page
-    Open Shop Homepage
     Ensure Account Menu Is Open
     Click    ${LOGIN_BUTTON_LOCATOR}
     Wait For Elements State    ${EMAIL_INPUT_LOCATOR}    visible    ${BROWSER_TIMEOUT}
@@ -107,12 +109,20 @@ Logout If Signed In
     ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
     IF    ${logout_count} > 0
         Click    ${LOGOUT_BUTTON_LOCATOR}
+        Wait Until Keyword Succeeds    10x    300ms    Account Menu Should Show Logged Out State
     END
 
 Account Menu Should Show Logged In State
     Ensure Account Menu Is Open
     ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
     Should Be True    ${logout_count} > 0
+
+Account Menu Should Show Logged Out State
+    Ensure Account Menu Is Open
+    ${login_count}=    Get Element Count    ${LOGIN_BUTTON_LOCATOR}
+    ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
+    Should Be True    ${login_count} > 0
+    Should Be Equal As Integers    ${logout_count}    0
 
 Ensure Account Menu Is Open
     ${login_count}=    Get Element Count    ${LOGIN_BUTTON_LOCATOR}

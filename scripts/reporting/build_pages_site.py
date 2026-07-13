@@ -25,6 +25,14 @@ def reset_directory(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
 
 
+def validate_paths(results_dir: Path, site_dir: Path) -> None:
+    """Reject paths that would delete or recursively copy Robot results."""
+    if site_dir == results_dir or results_dir.is_relative_to(site_dir):
+        raise ValueError("--site-dir must not be the results directory or its parent")
+    if site_dir.is_relative_to(results_dir):
+        raise ValueError("--site-dir must not be inside --results-dir")
+
+
 def copy_results(results_dir: Path, site_dir: Path) -> list[str]:
     """Copy every available Robot result file into the Pages site directory."""
     copied_files: list[str] = []
@@ -32,6 +40,9 @@ def copy_results(results_dir: Path, site_dir: Path) -> list[str]:
         return copied_files
 
     for item in results_dir.iterdir():
+        if item.is_symlink():
+            print(f"Skipping symbolic link in results: {item.name}")
+            continue
         destination = site_dir / item.name
         if item.is_dir():
             shutil.copytree(item, destination)
@@ -180,6 +191,7 @@ def main() -> int:
     results_dir = Path(args.results_dir).resolve()
     site_dir = Path(args.site_dir).resolve()
 
+    validate_paths(results_dir, site_dir)
     reset_directory(site_dir)
     copied_files = copy_results(results_dir, site_dir)
     metadata = build_metadata()

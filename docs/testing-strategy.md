@@ -32,9 +32,12 @@ The suite structure should stay readable at the page or feature level, similar t
 
 ## Basket
 
-- add a visible product to the basket
-- verify the basket count changes
-- verify the basket page contains an item
+- keep deeper basket coverage in a dedicated suite
+- verify an anonymous basket can start empty
+- verify anonymous add flows for one and three products
+- verify the basket quantity shown in the page matches the number of added products
+- verify a signed-in shopper can increase quantity from the basket page
+- verify the basket total changes by the visible unit price when quantity increases
 
 ## Login Function
 
