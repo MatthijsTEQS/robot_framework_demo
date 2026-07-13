@@ -7,6 +7,7 @@ Version 1 goals:
 - run Juice Shop locally with Docker Compose
 - run Robot Framework UI tests locally
 - run the same tests in GitHub Actions
+- publish the latest `main` branch Robot results to GitHub Pages
 - keep the test structure maintainable and readable
 - provide human docs in `docs/` and AI operating files in `.agents/`
 
@@ -15,20 +16,25 @@ Start with `docs/getting-started.md`.
 ## File Structure
 
 - `.agents/` contains AI instructions to help AI tools behave consistently in the repo.
-- `shared.md` defines common project rules, scope boundaries, selector rules, and helper-code placement rules.
-- `robot-author.md` explains how to create or refine Robot UI tests, where selectors belong, where Python test helpers belong, and what patterns to avoid.
-- `ci-author.md` explains how to work on GitHub workflow and CI behavior.
-- `reviewer.md` explains what AI review work should focus on.
-- `.github/workflows/ui-tests.yml` is the GitHub Actions workflow file.
+    - `ci-author.md` tells an AI how to extend GitHub Actions, preserve native Robot artifacts, and keep CI commands aligned with the local developer flow.
+    - `reviewer.md` tells an AI what to review for, with emphasis on maintainability, flaky waits, stale docs, and scope control.
+    - `robot-author.md` tells an AI how to add or refactor Robot suites, resources, locators, and test-support helpers without leaking selectors into suite files.
+    - `shared.md` defines common project rules, scope boundaries, selector rules, and helper-code placement rules.
+
+- `.github/workflows/ui-tests.yml` is the version-1 GitHub Actions pipeline. It installs the project, starts Juice Shop, runs the Robot suites, uploads the raw `results/` artifact, builds a small static site from those same files, and deploys the latest `main` branch results to GitHub Pages.
+
 - `docs/` contains human-first project documentation.
-- `acceptance-criteria.md` captures the business-facing outcomes the project should prove.
-- `architecture.md` explains the runtime shape and repo structure.
-- `coding-standards.md` explains coding conventions.
-- `getting-started.md` contains local setup and run commands.
-- `testing-strategy.md` explains what we test and how the suites are structured.
-- `scripts/` contains helper scripts.
-- `scripts/test_support/` contains Python-backed helpers for tests, such as CSV readers.
-- `wait_for_url.py` waits until the webshop is reachable before continuing with tests.
+    - `acceptance-criteria.md` captures the business-facing outcomes the project should prove.
+    - `architecture.md` explains the runtime shape, repo structure, and CI design.
+    - `coding-standards.md` explains coding conventions.
+    - `getting-started.md` contains local setup and run commands plus the GitHub Pages reporting note.
+    - `testing-strategy.md` explains what we test and how the suites are structured.
+
+- `scripts/` contains helper scripts grouped by purpose.
+    - `wait_for_url.py` performs the shared readiness polling used by CI and local runs.
+    - `/reporting/build_pages_site.py` copies the latest native Robot outputs into a static site folder and writes a landing page for GitHub Pages.
+    - `test_support/search_cases.py` contains Python-backed helpers used by tests, such as CSV readers.
+
 - `tests/data/` contains CSV- and Excel-based scenario input for search coverage.
 - `tests/robot/` contains business-readable Robot suites.
 - `tests/resources/` contains reusable keywords and centralized locators.
@@ -55,5 +61,7 @@ It is the version-1 CI pipeline and does the following:
 5. starts Juice Shop with Docker Compose
 6. waits until the app is reachable
 7. runs the Robot UI suite directly
-8. uploads Robot results as build artifacts
-9. stops the webshop container
+8. uploads `results/` as the raw build artifact
+9. builds a static site from the same Robot outputs
+10. deploys that site to GitHub Pages on pushes to `main`
+11. stops the webshop container

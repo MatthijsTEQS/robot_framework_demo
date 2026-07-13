@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   robot-ui-tests:
     runs-on: ubuntu-latest
@@ -24,6 +27,10 @@ jobs:
 
       - name: Initialize Browser library
         run: rfbrowser init
+
+      - name: Configure GitHub Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
 
       - name: Start OWASP Juice Shop
         run: docker compose -f webshop_app/docker-compose.yml up -d
@@ -45,6 +52,32 @@ jobs:
           name: robot-results
           path: results/
 
+      - name: Build GitHub Pages site
+        if: always() && github.ref == 'refs/heads/main'
+        run: python scripts/reporting/build_pages_site.py --results-dir results --site-dir pages-site
+
+      - name: Upload GitHub Pages artifact
+        if: always() && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: pages-site/
+
       - name: Stop OWASP Juice Shop
         if: always()
         run: docker compose -f webshop_app/docker-compose.yml down --remove-orphans
+
+  deploy-pages:
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: robot-ui-tests
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy GitHub Pages site
+        id: deployment
+        uses: actions/deploy-pages@v4

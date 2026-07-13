@@ -32,6 +32,7 @@ The repository is organized like this:
 - `tests/data/` contains CSV and Excel scenario input for search coverage
 - `tests/variables/` contains environment values and shared Robot settings
 - `scripts/` contains helper scripts
+- `scripts/reporting/` contains reporting helpers that turn native Robot outputs into a GitHub Pages-ready static site
 - `scripts/test_support/` contains Python-backed test helpers such as CSV readers
 - `.github/workflows/` contains GitHub Actions workflows
 - `docs/` contains human-first project documentation
@@ -55,6 +56,8 @@ The CI pipeline is intentionally simple:
 - wait for readiness
 - run Robot suites
 - upload Robot artifacts
+- publish the latest `main` branch Robot results to GitHub Pages
 - tear down the container
 
 There is no hosted environment in version 1.
+GitHub Pages only exposes the latest generated test report files from CI.
