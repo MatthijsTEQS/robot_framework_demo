@@ -37,7 +37,18 @@ Search For Product
     Ensure Search Input Is Ready
     Type Text    ${SEARCH_INPUT_LOCATOR}    ${search_term}
     Press Keys    ${SEARCH_INPUT_LOCATOR}    Enter
-    Wait For Elements State    text=Search Results - ${search_term}    visible    ${BROWSER_TIMEOUT}
+    Wait For Search State    ${search_term}
+
+Wait For Search State
+    [Arguments]    ${search_term}
+    ${normalized_search_term}=    Evaluate    str($search_term).strip()
+    IF    $search_term == '' # Check for truly empty string
+        Wait Until Shop Catalog Loads
+    ELSE IF    $normalized_search_term == '' # Check for whitespace-only string
+        Wait For Elements State    text=Search Results -    visible    ${BROWSER_TIMEOUT}
+    ELSE
+        Wait For Elements State    text=Search Results - ${normalized_search_term}    visible    ${BROWSER_TIMEOUT}
+    END
 
 Search Results Should Match
     [Arguments]    ${search_term}    ${expected_result_count}

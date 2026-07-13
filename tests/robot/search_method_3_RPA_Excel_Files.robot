@@ -19,8 +19,9 @@ Search Keywords From Excel With RPA Excel Files
     ${rows}=    Load Search Rows From Excel
     FOR    ${row}    IN    @{rows}
         ${input}=    Get From Dictionary    ${row}    Input
+        ${normalized_input}=    Normalize Search Input    ${input}
         ${expectation}=    Get From Dictionary    ${row}    Expectation
-        Run Keyword And Continue On Failure    Search Results Should Match    ${input}    ${expectation}
+        Run Keyword And Continue On Failure    Search Results Should Match    ${normalized_input}    ${expectation}
     END
 
 *** Keywords ***
@@ -29,3 +30,10 @@ Load Search Rows From Excel
     ${rows}=    Read Worksheet    name=${SEARCH_WORKSHEET_NAME}    header=${TRUE}
     Close Workbook
     RETURN    ${rows}
+
+Normalize Search Input
+    [Arguments]    ${value}
+    IF    $value is None
+        RETURN    ${EMPTY}
+    END
+    RETURN    ${value}

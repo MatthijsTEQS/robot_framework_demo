@@ -20,7 +20,7 @@ def _load_rows() -> list[dict[str, int | str]]:
         reader = csv.DictReader(handle)
         return [
             {
-                "input": row["Input"].strip(),
+                "input": row["Input"] or "",
                 "expectation": int(row["Expectation"]),
             }
             for row in reader
