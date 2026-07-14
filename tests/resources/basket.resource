@@ -8,7 +8,7 @@ ${FIRST_BASKET_ITEM_NAME_LOCATOR}           css=mat-row >> nth=0 >> css=.cdk-col
 ${FIRST_BASKET_ITEM_QUANTITY_LOCATOR}       css=mat-row >> nth=0 >> css=.cdk-column-quantity span.cell-initial-font
 ${FIRST_BASKET_ITEM_PRICE_LOCATOR}          css=mat-row >> nth=0 >> css=.cdk-column-price
 ${FIRST_BASKET_ITEM_PLUS_BUTTON_LOCATOR}    css=mat-row >> nth=0 >> css=.cdk-column-quantity button >> nth=1
-${BASKET_SNACKBAR_CLOSE_LOCATOR}            css=mat-snack-bar-container button, simple-snack-bar button
+${BASKET_SNACKBAR_CLOSE_LOCATOR}            css=mat-snack-bar-container button:has-text("X"), simple-snack-bar button:has-text("X")
 
 *** Keywords ***
 Add First Visible Product To Basket Multiple Times
