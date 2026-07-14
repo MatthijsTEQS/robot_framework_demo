@@ -35,10 +35,12 @@ Start with `docs/getting-started.md`.
     - `reporting/build_pages_site.py` copies the latest native Robot outputs into a static site folder and writes a landing page for GitHub Pages.
     - `test_support/search_cases.py` contains Python-backed helpers used by tests, such as CSV readers.
 
-- `tests/data/` contains CSV- and Excel-based scenario input for search coverage.
-- `tests/robot/` contains business-readable Robot suites.
-- `tests/resources/` contains reusable keywords and centralized locators.
-- `tests/variables/` contains Robot variable resources for environment values, browser, and timeouts.
+- `tests/`
+    - `data/` contains CSV- and Excel-based scenario input for search coverage.
+    - `robot/` contains business-readable Robot suites.
+    - `resources/` contains reusable keywords and centralized locators.
+    - `variables/` contains Robot variable resources for environment values, browser, and timeouts.
+
 - `webshop_app/docker-compose.yml` contains runtime assets for the upstream `OWASP Juice Shop` container.
 - `pyproject.toml` defines the Python project metadata and dependencies, including `robotframework-browser`, `robotframework-datadriver`, and `rpaframework`.
 
