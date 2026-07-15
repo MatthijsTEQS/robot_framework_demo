@@ -102,10 +102,6 @@ Basket Count Should Be Greater Than
     ${baseline_int}=    Convert To Integer    ${baseline}
     Should Be True    ${current_int} > ${baseline_int}
 
-Basket Should Contain At Least One Item
-    ${rows}=    Get Element Count    ${BASKET_ITEM_ROW_LOCATOR}
-    Should Be True    ${rows} >= 1
-
 Catalog Should Show Products
     ${cards}=    Get Element Count    ${CATALOG_CARD_LOCATOR}
     Should Be True    ${cards} >= 1

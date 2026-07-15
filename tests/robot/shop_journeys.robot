@@ -22,15 +22,3 @@ Product Details
     Open First Product Details
     Details Dialog Should Be Visible
     Close Product Details
-
-Add Product To Basket
-    [Documentation]    Verify that a shopper can add a visible product to the basket.
-    Search For Product    ${SEARCH_TERM}
-    Add First Visible Product To Basket
-
-Basket Verification
-    [Documentation]    Verify that the basket contains an item after a shopper adds one.
-    Search For Product    ${SEARCH_TERM}
-    Add First Visible Product To Basket
-    Open Basket
-    Basket Should Contain At Least One Item

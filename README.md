@@ -3,11 +3,10 @@
 This repository contains a demo project for UI-only webshop testing with `Python + Robot Framework + Browser` against `OWASP Juice Shop`.
 
 It can:
-- run Juice Shop locally with Docker Compose
+- run a Docker Container with a webshop `OWASP Juice Shop`
 - run Robot Framework UI tests locally
 - run the same tests in GitHub Actions
 - publish the latest `main` branch Robot results to GitHub Pages
-- keep the test structure maintainable and readable
 - provide human docs in `docs/` and AI operating files in `.agents/`
 
 Start with `docs/getting-started.md`.
