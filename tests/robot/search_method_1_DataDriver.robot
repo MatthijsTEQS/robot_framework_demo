@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation       Search coverage for OWASP Juice Shop using Robot Framework DataDriver.
-...                 Search method 2: Robot Framework DataDriver.
+...                 Search method 1: Robot Framework DataDriver.
 ...                 DataDriver creates one test per row and starts a fresh browser session for each generated test.
 
 Library             DataDriver

@@ -42,8 +42,8 @@ The repository is organized like this:
 
 The repository demonstrates three ways to drive the same search assertions from external test data:
 
-- `search_method_1_Python_Reader.robot` loads `search_keywords.csv` through a small Python helper in `scripts/test_support/`
-- `search_method_2_DataDriver.robot` loads `search_keywords_datadriver.csv` directly through `robotframework-datadriver`
+- `search_method_1_DataDriver.robot` loads `search_keywords_datadriver.csv` directly through `robotframework-datadriver`
+- `search_method_2_Python_Reader.robot` loads `search_keywords.csv` through a small Python helper in `scripts/test_support/`
 - `search_method_3_RPA_Excel_Files.robot` reads `search_keywords.xlsx`
 
 This keeps the acceptance logic shared while showing different data-loading approaches.
