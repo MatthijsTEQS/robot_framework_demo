@@ -15,7 +15,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = []
+dev = [
+  "robotframework-robocop>=6.0,<7.0",
+]
 
 [tool.setuptools]
 packages = []

@@ -1,9 +1,12 @@
 *** Settings ***
-Documentation    Basket coverage for anonymous and authenticated OWASP Juice Shop shopping flows.
-Resource         ../resources/basket.resource
-Resource         ../resources/browser_setup.resource
-Test Setup       Open Shop Homepage
-Test Teardown    Handle Test Cleanup
+Documentation       Basket coverage for anonymous and authenticated OWASP Juice Shop shopping flows.
+
+Resource            ../resources/basket.resource
+Resource            ../resources/browser_setup.resource
+
+Test Setup          Open Shop Homepage
+Test Teardown       Handle Test Cleanup
+
 
 *** Test Cases ***
 Anonymous Basket Starts Empty
@@ -29,7 +32,7 @@ Anonymous Basket Shows Three Added Products
     Basket Total Price Should Match Visible Item Price
 
 Authenticated Basket Quantity Update Changes Total Price
-    [Documentation]    Verify that a signed-in shopper can increase basket quantity and the total price updates correctly.
+    [Documentation]    Verify that a signed-in shopper can increase basket quantity and total price.
     Prepare Logged In Basket With One Product
     Basket Title Should Show Owner    ${LOGIN_ACCOUNT_EMAIL}
     Basket Should Show Product Quantity    1

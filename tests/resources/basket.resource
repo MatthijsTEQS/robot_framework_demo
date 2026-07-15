@@ -1,20 +1,25 @@
 *** Settings ***
-Resource    juice_shop.resource
-Resource    login.resource
-Library     String
+Documentation       Reusable basket UI actions and assertions for the Juice Shop demo.
+
+Library             String
+Resource            juice_shop.resource
+Resource            login.resource
+
 
 *** Variables ***
 ${FIRST_BASKET_ITEM_NAME_LOCATOR}           css=mat-row >> nth=0 >> css=.cdk-column-product
 ${FIRST_BASKET_ITEM_QUANTITY_LOCATOR}       css=mat-row >> nth=0 >> css=.cdk-column-quantity span.cell-initial-font
 ${FIRST_BASKET_ITEM_PRICE_LOCATOR}          css=mat-row >> nth=0 >> css=.cdk-column-price
 ${FIRST_BASKET_ITEM_PLUS_BUTTON_LOCATOR}    css=mat-row >> nth=0 >> css=.cdk-column-quantity button >> nth=1
-${BASKET_SNACKBAR_CLOSE_LOCATOR}            css=mat-snack-bar-container button:has-text("X"), simple-snack-bar button:has-text("X")
+${BASKET_SNACKBAR_CLOSE_LOCATOR}            css=mat-snack-bar-container button:has-text("X"),
+...                                         simple-snack-bar button:has-text("X")
+
 
 *** Keywords ***
 Add First Visible Product To Basket Multiple Times
     [Arguments]    ${count}
     ${times}=    Convert To Integer    ${count}
-    FOR    ${index}    IN RANGE    ${times}
+    FOR    ${_}    IN RANGE    ${times}
         Add First Visible Product To Basket
         Close Basket Snackbar If Present
     END
@@ -69,7 +74,8 @@ Basket Total Price Should Be Exactly In Cents
     Should Be Equal As Integers    ${actual_total}    ${expected_total}
 
 Basket Total Price Should Increase By
-    [Arguments]    ${before_total}    ${increase_amount}
+    [Arguments]    ${before_total}
+    ...    ${increase_amount}
     ${expected_total}=    Evaluate    int($before_total) + int($increase_amount)
     Basket Total Price Should Be In Cents    ${expected_total}
 
@@ -106,7 +112,8 @@ Read Basket Total Price In Cents
 
 Parse Price Text To Cents
     [Arguments]    ${price_text}
-    ${normalized}=    Evaluate    __import__("re").search(r"(\\d+[\\.,]\\d+|\\d+)", str($price_text)).group(1).replace(',', '.')
+    ${normalized}=    Evaluate
+    ...    __import__("re").search(r"(\\d+[\\.,]\\d+|\\d+)", str($price_text)).group(1).replace(',', '.')
     ${price_cents}=    Evaluate    int(round(float($normalized) * 100))
     RETURN    ${price_cents}
 

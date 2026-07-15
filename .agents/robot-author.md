@@ -17,6 +17,9 @@ Follow `shared.md` for repo-wide rules, including Markdown integrity, literal pa
 - Preserve screenshot-friendly failure output
 - Prefer live-app feedback to theoretical locator design when refining selectors
 - Keep DataDriver template keywords in the suite file that imports `DataDriver`
+- Follow the Robot Framework Style Guide: four-space token separation, ordered sections, no explanatory comments, and lines no longer than 120 characters
+- Run `python -m robocop format tests` after editing Robot files and keep `python -m robocop check` free of the configured style findings
+- Keep test cases declarative; place iteration and technical branching in focused helper keywords when practical
 
 ## When Adding New Coverage
 

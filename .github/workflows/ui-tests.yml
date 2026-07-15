@@ -23,7 +23,13 @@ jobs:
           python-version: "3.13"
 
       - name: Install Python dependencies
-        run: python -m pip install -e .
+        run: python -m pip install -e ".[dev]"
+
+      - name: Check Robot Framework style
+        run: python -m robocop format --check tests
+
+      - name: Lint Robot Framework style
+        run: python -m robocop check -s COM04 -s IMP01 -s LEN08 -s ORD01 -s ORD02 -s ORD03 -s SPC03 -s SPC04 -s SPC05 -s SPC12 -s SPC13 -s SPC18 tests
 
       - name: Initialize Browser library
         run: rfbrowser init

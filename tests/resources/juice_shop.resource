@@ -1,27 +1,37 @@
 *** Settings ***
-Library    Browser
-Library    Collections
-Library    String
-Resource   browser_setup.resource
+Documentation       Central Juice Shop locators and reusable UI interactions.
+
+Library             Collections
+Library             String
+Library             Browser
+Resource            browser_setup.resource
+
 
 *** Variables ***
-${CATALOG_CARD_LOCATOR}             css=mat-card:visible
-${FIRST_CATALOG_CARD_LOCATOR}       css=mat-card:visible >> nth=0
-${SEARCH_OPEN_BUTTON_LOCATOR}       css=button[aria-label*="Open search" i]
-${SEARCH_INPUT_LOCATOR}             css=app-mat-search-bar input:visible, input[aria-label*="search" i]:visible, input[placeholder*="Search" i]:visible, input[type="search"]:visible
-${NO_RESULTS_LOCATOR}               text=No results found
-${PRODUCT_IMAGE_LOCATOR}            css=mat-card:visible img
-${FIRST_PRODUCT_IMAGE_LOCATOR}      css=mat-card:visible img >> nth=0
-${PRODUCT_NAME_LOCATOR}             css=mat-card:visible .item-name, mat-card-title
-${ADD_TO_BASKET_LOCATOR}            css=button[aria-label*="Add to Basket"], button[mattooltip*="Add to Basket"]
-${FIRST_ADD_TO_BASKET_LOCATOR}      css=button[aria-label*="Add to Basket"], button[mattooltip*="Add to Basket"] >> nth=0
-${BASKET_BUTTON_LOCATOR}            css=button[aria-label*="shopping cart"], button[mattooltip*="Show the shopping cart"]
-${BASKET_COUNT_LOCATOR}             css=button[aria-label*="shopping cart"] .warn-notification
-${BASKET_PAGE_TITLE_LOCATOR}        css=app-basket h1
-${BASKET_TOTAL_PRICE_LOCATOR}       css=#price
-${BASKET_ITEM_ROW_LOCATOR}          css=mat-row, tr.mat-mdc-row, .basket-item
-${PRODUCT_DETAILS_DIALOG_LOCATOR}   css=mat-dialog-container
-${PRODUCT_DETAILS_CLOSE_LOCATOR}    css=mat-dialog-container button[aria-label*="Close"], mat-dialog-container button[mat-dialog-close]
+${CATALOG_CARD_LOCATOR}                 css=mat-card:visible
+${FIRST_CATALOG_CARD_LOCATOR}           css=mat-card:visible >> nth=0
+${SEARCH_OPEN_BUTTON_LOCATOR}           css=button[aria-label*="Open search" i]
+${SEARCH_INPUT_LOCATOR}                 css=app-mat-search-bar input:visible,
+...                                     input[aria-label*="search" i]:visible,
+...                                     input[placeholder*="Search" i]:visible,
+...                                     input[type="search"]:visible
+${NO_RESULTS_LOCATOR}                   text=No results found
+${PRODUCT_IMAGE_LOCATOR}                css=mat-card:visible img
+${FIRST_PRODUCT_IMAGE_LOCATOR}          css=mat-card:visible img >> nth=0
+${PRODUCT_NAME_LOCATOR}                 css=mat-card:visible .item-name, mat-card-title
+${ADD_TO_BASKET_LOCATOR}                css=button[aria-label*="Add to Basket"], button[mattooltip*="Add to Basket"]
+${FIRST_ADD_TO_BASKET_LOCATOR}          css=button[aria-label*="Add to Basket"],
+...                                     button[mattooltip*="Add to Basket"] >> nth=0
+${BASKET_BUTTON_LOCATOR}                css=button[aria-label*="shopping cart"],
+...                                     button[mattooltip*="Show the shopping cart"]
+${BASKET_COUNT_LOCATOR}                 css=button[aria-label*="shopping cart"] .warn-notification
+${BASKET_PAGE_TITLE_LOCATOR}            css=app-basket h1
+${BASKET_TOTAL_PRICE_LOCATOR}           css=#price
+${BASKET_ITEM_ROW_LOCATOR}              css=mat-row, tr.mat-mdc-row, .basket-item
+${PRODUCT_DETAILS_DIALOG_LOCATOR}       css=mat-dialog-container
+${PRODUCT_DETAILS_CLOSE_LOCATOR}        css=mat-dialog-container button[aria-label*="Close"],
+...                                     mat-dialog-container button[mat-dialog-close]
+
 
 *** Keywords ***
 Open Shop Homepage
@@ -55,7 +65,8 @@ Wait For Search State
     END
 
 Search Results Should Match
-    [Arguments]    ${search_term}    ${expected_result_count}
+    [Arguments]    ${search_term}
+    ...    ${expected_result_count}
     ${expected_count}=    Convert To Integer    ${expected_result_count}
     Search For Product    ${search_term}
     IF    ${expected_count} == 0
@@ -88,9 +99,7 @@ Open Basket
 
 Read Basket Count
     ${counter_count}=    Get Element Count    ${BASKET_COUNT_LOCATOR}
-    IF    ${counter_count} == 0
-        RETURN    0
-    END
+    IF    ${counter_count} == 0    RETURN    0
     ${count_text}=    Get Text    ${BASKET_COUNT_LOCATOR}
     ${normalized_count}=    Strip String    ${count_text}
     RETURN    ${normalized_count}
@@ -121,6 +130,4 @@ Click If Visible
     [Arguments]    ${locator}
     ${is_visible}=    Run Keyword And Return Status
     ...    Wait For Elements State    ${locator}    visible    1s
-    IF    ${is_visible}
-        Click With Options    ${locator}    force=True
-    END
+    IF    ${is_visible}    Click With Options    ${locator}    force=True

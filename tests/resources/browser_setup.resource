@@ -1,6 +1,9 @@
 *** Settings ***
-Library    Browser
-Resource   ../variables/environment.resource
+Documentation       Browser lifecycle and failure-artifact helpers for UI suites.
+
+Library             Browser
+Resource            ../variables/environment.resource
+
 
 *** Keywords ***
 Open Browser To Shop

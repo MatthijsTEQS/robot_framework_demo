@@ -13,6 +13,9 @@
 - Avoid giant keywords that hide too much flow detail
 - Prefer robust waits over sleeps
 - Capture screenshots on failures
+- Follow the [Robot Framework Style Guide](https://docs.robotframework.org/docs/style_guide)
+- Use four spaces between tokens, keep lines at or below 120 characters, and avoid explanatory comments
+- Run `python -m robocop format tests` and the configured Robocop lint check before submitting changes
 
 ## Python Scripts
 
