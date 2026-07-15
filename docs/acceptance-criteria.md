@@ -4,7 +4,7 @@
 
 This file keeps the project focused on user-visible outcomes rather than only code-level concerns.
 
-## Version 1 Acceptance Themes
+## Acceptance Themes
 
 ### Runtime
 

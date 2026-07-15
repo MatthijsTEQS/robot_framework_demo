@@ -12,7 +12,7 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 ## Scope Boundaries
 
 - UI tests only
-- GitHub Actions only in version 1
+- GitHub Actions only
 - no hosted environment
 - no API suite
 - no checkout flow
@@ -33,7 +33,7 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 - Keep selectors centralized in resource files
 - Keep business flows readable in Robot suites
 - Keep CI commands aligned with the documented local commands
-- Keep version-1 structure simple and explicit
+- Keep the structure simple and explicit
 
 ## Selector Rules
 
@@ -45,6 +45,6 @@ This repository demonstrates a maintainable Robot Framework UI automation setup 
 ## Testing Philosophy
 
 - optimize for acceptance value
-- keep version 1 stable and teachable
+- keep the project stable and teachable
 - avoid clever abstraction for its own sake
 - tighten live locators based on real test feedback, not speculation

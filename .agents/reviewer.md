@@ -14,7 +14,7 @@ Follow `shared.md` for repo-wide rules. Treat broken Markdown, malformed literal
 - Do Robot suites read as business flows?
 - Are waits robust and explicit?
 - Does CI stay understandable?
-- Does the change stay inside version 1 scope?
+- Does the change stay inside the intended project scope?
 - Do the docs still match the actual repo structure and commands?
 
 ## Red Flags

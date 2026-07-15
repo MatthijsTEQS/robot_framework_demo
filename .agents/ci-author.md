@@ -2,7 +2,7 @@
 
 ## Primary Goal
 
-Extend GitHub Actions without making version 1 harder to understand than necessary.
+Extend GitHub Actions without making the project harder to understand than necessary.
 
 ## Base Rules
 
@@ -10,7 +10,7 @@ Follow `shared.md` for repo-wide rules, especially command/doc alignment and saf
 
 ## Rules
 
-- keep GitHub Actions as the only implemented CI platform in version 1
+- keep GitHub Actions as the only implemented CI platform
 - preserve Robot native artifacts
 - align workflow commands with local developer commands
 - keep readiness checks explicit
@@ -20,7 +20,7 @@ Follow `shared.md` for repo-wide rules, especially command/doc alignment and saf
 
 ## Avoid
 
-- adding Jenkins or GitLab implementation in version 1
+- adding Jenkins or GitLab implementation
 - introducing a hosted environment dependency
 - adding rich reporting stacks unless clearly needed
 - hiding simple Docker or Robot commands behind unnecessary Python helpers

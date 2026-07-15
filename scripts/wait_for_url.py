@@ -50,7 +50,7 @@ def main() -> int:
                 args.url, timeout=min(args.request_timeout, remaining)
             ) as response:
                 # Treat any reachable application response as "ready enough"
-                # for version-1 orchestration, even if the page returns a
+                # for this orchestration flow, even if the page returns a
                 # redirect or a client-side error page.
                 if 200 <= response.status < 500:
                     print(f"Ready: {args.url} ({response.status})")

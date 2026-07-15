@@ -1,9 +1,8 @@
 # Robot Framework Webshop Demo
 
-This repository contains a version-1 demo project for UI-only webshop testing with `Python + Robot Framework + Browser` against `OWASP Juice Shop`.
+This repository contains a demo project for UI-only webshop testing with `Python + Robot Framework + Browser` against `OWASP Juice Shop`.
 
-Version 1 goals:
-
+It can:
 - run Juice Shop locally with Docker Compose
 - run Robot Framework UI tests locally
 - run the same tests in GitHub Actions
@@ -21,7 +20,7 @@ Start with `docs/getting-started.md`.
     - `robot-author.md` tells an AI how to add or refactor Robot suites, resources, locators, and test-support helpers without leaking selectors into suite files.
     - `shared.md` defines common project rules, scope boundaries, selector rules, and helper-code placement rules.
 
-- `.github/workflows/ui-tests.yml` is the version-1 GitHub Actions pipeline. It installs the project, starts Juice Shop, runs the Robot suites, uploads the raw `results/` artifact, builds a small static site from those same files, and deploys the latest `main` branch results to GitHub Pages.
+- `.github/workflows/ui-tests.yml` describes the GitHub Actions pipeline. It installs the project, starts Juice Shop, runs the Robot suites, uploads the raw `results/` artifact, builds a small static site from those same files, and deploys the latest `main` branch results to GitHub Pages.
 
 - `docs/` contains human-first project documentation.
     - `acceptance-criteria.md` captures the business-facing outcomes the project should prove.
@@ -51,9 +50,8 @@ The workflow:
 - runs on pull requests
 - runs on pushes to `main`
 - keeps reporting native to Robot
-- avoids extra CI platforms or hosted environments in version 1
 
-It is the version-1 CI pipeline and does the following:
+The pipeline:
 
 1. checks out the repository
 2. sets up Python

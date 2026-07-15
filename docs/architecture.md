@@ -2,7 +2,7 @@
 
 ## Runtime Shape
 
-Version 1 uses `OWASP Juice Shop` as the single system under test.
+The project uses `OWASP Juice Shop` as the single system under test.
 The app runs from the official upstream container image through Docker Compose.
 Robot Framework runs directly on the developer machine locally and directly on the GitHub Actions runner in CI.
 
@@ -59,5 +59,5 @@ The CI pipeline is intentionally simple:
 - publish the latest `main` branch Robot results to GitHub Pages
 - tear down the container
 
-There is no hosted environment in version 1.
+There is no hosted environment in the current setup.
 GitHub Pages only exposes the latest generated test report files from CI.

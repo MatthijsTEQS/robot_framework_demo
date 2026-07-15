@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document explains how version 1 tests the webshop and why the suite is structured the way it is.
+This document explains how the project tests the webshop and why the suite is structured the way it is.
 
 ## Scope
 
@@ -11,7 +11,7 @@ This document explains how version 1 tests the webshop and why the suite is stru
 - happy-path focused
 - fast enough for pull request feedback
 
-## Version 1 Coverage Areas
+## Coverage Areas
 
 The suite structure should stay readable at the page or feature level, similar to a lightweight POM-style organization.
 

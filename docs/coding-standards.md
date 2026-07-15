@@ -2,7 +2,7 @@
 
 ## General
 
-- Keep version 1 simple and readable
+- Keep the project simple and readable
 - Prefer explicit code over clever abstractions
 - Keep docs and automation aligned
 
